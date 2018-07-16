@@ -1,23 +1,20 @@
-* {
+body {
+    align-items: center;
     color: black;
+    display: flex;
+    flex-direction: column;
     font-family: Verdana, serif;
-    font-size: 50px;
-}
-
-.boardGame {
-    border: #0078d7;
-    color: #0078d7;
-}
-
-p {
-    text-align: center;
     font-size: 30px;
+}
+
+#boardGame {
+    border: #0078d7;
+    font-size: 50px;
 }
 
 td {
     background-color: #e1e1e1;
-    border: solid #adadad;
-    border-width: 1px;
+    border: 1px solid #adadad;
     text-align: center;
     vertical-align: middle;
     width: 100px;
@@ -31,8 +28,6 @@ td:hover {
 
 button {
     font-size: 30px;
-    text-align: center;
-    vertical-align: middle;
     width: 300px;
     height: 80px;
 }
