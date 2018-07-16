@@ -1,16 +1,13 @@
-/*GLOBAL VARIABLES*/
 var isWin = false;
 var isXCurrentPlayer = true;
 var board;
 var clickCounter = 0;
 
-/*ENABLING PLAY AGAIN BUTTON*/
-function enablePlayAgainButton() {
+function enablePlayAgainButtonFunction() {
     var playAgainButton = document.getElementById("playAgainButton");
     playAgainButton.addEventListener("click", startNewGame);
 }
 
-/*FUNCTION PREPARING NEW GAME*/
 function startNewGame() {
     isWin = false;
     isXCurrentPlayer = true;
@@ -27,7 +24,6 @@ function startNewGame() {
     clickCounter = 0;
 }
 
-/*ON-CLICK LOGIC*/
 function onClickAction() {
     clickCounter++;
     var stringCellId = this.id;
@@ -128,6 +124,5 @@ function onClickAction() {
     }
 }
 
-/*CALLING STARTING FUNCTIONS*/
-enablePlayAgainButton();
+enablePlayAgainButtonFunction();
 startNewGame();
