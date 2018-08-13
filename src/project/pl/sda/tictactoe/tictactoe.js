@@ -3,6 +3,9 @@ var isXCurrentPlayer = true;
 var board;
 var clickCounter = 0;
 
+enablePlayAgainButtonFunction();
+startNewGame();
+
 function enablePlayAgainButtonFunction() {
     var playAgainButton = document.getElementById("playAgainButton");
     playAgainButton.addEventListener("click", startNewGame);
@@ -31,6 +34,15 @@ function onClickAction() {
     var iIndexOfBoard = Math.floor((intCellId) / 3);
     var jIndexOfBoard = (intCellId) % 3;
     var thisCell = document.getElementById(stringCellId);
+    var actualPlayerSymbol = getCurrentPlayer();
+
+    markCell();
+    if (checkWin()) {
+        announceVictory();
+    } else {
+        checkDraw();
+        switchPlayer();
+    }
 
     function getCurrentPlayer() {
         if (isXCurrentPlayer) {
@@ -38,8 +50,6 @@ function onClickAction() {
         }
         return "O";
     }
-
-    var actualPlayerSymbol = getCurrentPlayer();
 
     function markCell() {
         board[iIndexOfBoard][jIndexOfBoard] = actualPlayerSymbol;
@@ -60,6 +70,20 @@ function onClickAction() {
         var columnCounter = 0;
         var firstDiagonalCounter = 0;
         var secondDiagonalCounter = 0;
+
+        for (var i = 0; i < 3; i++) {
+            increaseRowAndColumnCounters();
+            if (checkCounters(rowCounter, columnCounter)) {
+                isWin = true;
+                break;
+            }
+            increaseDiagonalsCounters();
+            resetRowAndColumnCounters();
+        }
+        if (checkCounters(firstDiagonalCounter, secondDiagonalCounter)) {
+            isWin = true;
+        }
+        return isWin;
 
         function checkCounters(counter1, counter2) {
             return counter1 === 3 || counter2 === 3;
@@ -89,20 +113,6 @@ function onClickAction() {
             rowCounter = 0;
             columnCounter = 0;
         }
-
-        for (var i = 0; i < 3; i++) {
-            increaseRowAndColumnCounters();
-            if (checkCounters(rowCounter, columnCounter)) {
-                isWin = true;
-                break;
-            }
-            increaseDiagonalsCounters();
-            resetRowAndColumnCounters();
-        }
-        if (checkCounters(firstDiagonalCounter, secondDiagonalCounter)) {
-            isWin = true;
-        }
-        return isWin;
     }
 
     function checkDraw() {
@@ -114,15 +124,4 @@ function onClickAction() {
     function switchPlayer() {
         isXCurrentPlayer = !isXCurrentPlayer;
     }
-
-    markCell();
-    if (checkWin()) {
-        announceVictory();
-    } else {
-        checkDraw();
-        switchPlayer();
-    }
 }
-
-enablePlayAgainButtonFunction();
-startNewGame();
